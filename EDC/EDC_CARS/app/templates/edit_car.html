@@ -1,0 +1,59 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+	<br>
+
+	<h1>Edit: {{name}} </h1>
+
+    <br><br>
+
+	<div class=" text-center table-responsive" style="width: 60rem">
+	  <table class="table table" id="triples">
+		 
+		  <tbody>
+		  	{% for triple in dict %}
+		    <tr>
+
+		      <td>{{triple.0}}</td>
+		      <td>{{triple.1}}</td>
+		     
+		      	<form class="user text-center" style="width: 20rem" action="{% url 'submit_edit_car' %}" method="post">
+				 <td>
+				 	<input type="role" name="car_name" class="form-control" id="edit" aria-describedby="roleHelp" placeholder="{{triple.2}}" value="{{triple.0}}" hidden>
+				 	<input type="role" name="predicate" class="form-control" id="edit" aria-describedby="roleHelp" placeholder="{{triple.2}}" value="{{triple.1}}" hidden>
+				 	<input type="role" name="oldObject" class="form-control" id="edit" aria-describedby="roleHelp" placeholder="{{triple.2}}" value="{{triple.2}}" hidden>
+				 	
+
+    					<input type="role" name="newObject" class="form-control" id="edit" aria-describedby="roleHelp" placeholder="{{triple.2}}" value="{{triple.2}}" >
+    			  </td>
+    			  <td>
+    					{% csrf_token %}
+            	<button type="submit" name="searchCar" class="btn btn-sm btn-outline-primary btn-rounded">Save</button>
+            	</td>
+				</form>
+
+		  	   </td>
+
+
+		    </tr>
+		    
+		    {% endfor %}
+		  </tbody>
+		</table>
+	</div>
+
+	<br><br>
+
+
+
+	<br><br><br><br><br><br>
+
+	<script>
+
+	$("table-responsive").on('click', '#triples tbody tr', function(){
+		alert("!!");
+    	alert($(this).value());
+	});
+	</script>
+{% endblock %}

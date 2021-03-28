@@ -1,0 +1,32 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+	<br>
+
+	<h1>Automobile Finder</h1>
+
+    <br><br>
+
+	<div class="card text-center" style="width: 60rem">
+	  <h5 class="card-header card-title">Brands</h5>
+	  <div class="card-body">  
+	  <br> 
+	    {% for m in manufacturers %}
+	      <a type="button" href="{% url 'brandDetail' m %}" class="btn btn-outline-dark" data-mdb-ripple-color="dark">
+  				{{m}}
+		  </a>
+	    {% endfor %}
+	  <p></p>
+	  
+	  </div>
+	</div>
+
+	        </br></br>
+            </br></br>
+			</br></br>
+			</br></br>
+            </br></br>
+			</br></br>
+
+{% endblock %}

@@ -1,0 +1,134 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+	<br>
+
+	<h1>Automobile Finder</h1>
+
+    <br><br>
+
+	<div class="card" style="width: 60rem">
+	  <h5 class="card-header text-center">Search by Manufacturer and Model</h5>
+	  <div class="card-body">
+	  	<div class="d-flex justify-content-lg-between">
+            <form class="user d-flex justify-content-lg-between" action="{% url 'car' %}" method="post">
+
+            	<select class="btn-dark mdb-select md-form form-control rounded text-center" name="man" id="listMan" style="max-height:100px; overflow:auto;width: 26rem">
+            		<option value="" disabled selected>MANUFACTURER</option>
+		              {% for man in manufacturers %}
+		                <option value="{{man}}">{{man}}</option>
+		              {% endfor %}
+              	</select>
+              	<select class="btn-dark mdb-select md-form form-control rounded text-center" name="name"id="listCars" style="max-height:100px; overflow:auto; width: 26rem">
+            			<option value="" disabled selected>MODEL</option>
+            	</select>
+
+            	{% csrf_token %}
+
+                <div class="d-grid gap-1 col-0 mx-auto">
+
+                        <button id="man_model" type="submit" class="btn btn-sm btn-primary btn-rounded ">Search</button>
+
+                        <button id="edit_model" type="submit" name= "editCar" class="btn btn-sm btn-primary btn-rounded">Edit</button>
+
+                </div>
+            </form>
+
+        </div>
+	  </div>
+	</div>
+
+	<br><br>
+
+	<div class="card" style="width: 60rem">
+	  <h5 class="card-header text-center">Search by Others</h5>
+	  <div class="card-body">
+	    <div class="d-flex  justify-content-lg-between">
+            <form class="user d-flex  justify-content-lg-between" action="{% url 'car' %}" method="post">
+            	<select class="btn-dark mdb-select sm-form form-control rounded text-center" name="typeInf" id="listOther" style="max-height:100px; overflow:auto;width: 26rem">
+            		<option value="" disabled selected>OTHER FACTORS</option>
+		              
+		                <option value="Classic">Classic</option>
+		                <option value="Ecologic">Ecologic</option>
+		           
+              	</select>
+              	<select class="btn-dark mdb-select sm-form form-control rounded text-center" name="name"id="listCarsOther" style="max-height:100px; overflow:auto; width: 26rem">
+            			<option value="" disabled selected>MODEL</option>
+                </select>
+            	{% csrf_token %}
+                <p>
+                    <button id="man_model" type="submit" class="btn btn-sm btn-primary btn-rounded">Search</button></p>
+
+            </form>
+        </div>
+	  </div>
+	</div>
+
+	<br><br><br><br><br><br>
+
+	<script>
+
+		$("#listMan").change(function() {
+
+			const url = "{% url 'load_cars'  %}";
+		    const man = $(this).val();
+
+		    $.ajax({                       
+		            url: '{% url "load_cars" %}' ,                  
+		            data: {
+		                'man': man,      
+		            },
+		    		type:           'GET',
+		    		contentType:    'application/json',
+		    		dataType:       'json',
+		            success: function (data) { 
+		          		var html_data = "<option value=\"\" disabled selected>MODEL</option>";
+		          		
+		          		for (var i = 0; i< data['models'].length; i++){
+		                	html_data+="<option value=\""+ data['models'][i] + "\">"+ data['models'][i] + "</option>";
+		          		}
+		                
+		                $("#listCars").html(html_data);
+		            },
+		           	error: function(rs, e) {
+		           		alert(rs.responseText);
+		           		alert("error");
+		           	}
+		          	  
+		    });
+
+		});
+
+		$("#listOther").change(function() {
+
+			const url = "{% url 'load_cars_inference'  %}";
+		    const typeInf = $(this).val();
+
+		    $.ajax({                       
+		            url: '{% url "load_cars_inference" %}' ,                  
+		            data: {
+		                'typeInf': typeInf,      
+		            },
+		    		type:           'GET',
+		    		contentType:    'application/json',
+		    		dataType:       'json',
+		            success: function (data) { 
+		          		var html_data = "<option value=\"\" disabled selected>MODEL</option>";
+		          		
+		          		for (var i = 0; i< data['models'].length; i++){
+		                	html_data+="<option value=\""+ data['models'][i] + "\">"+ data['models'][i] + "</option>";
+		          		}
+		                
+		                $("#listCarsOther").html(html_data);
+		            },
+		           	error: function(rs, e) {
+		           		alert(rs.responseText);
+		           		alert("error");
+		           	}
+		          	  
+		    });
+
+		});
+	</script>
+{% endblock %}

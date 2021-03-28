@@ -1,0 +1,46 @@
+{% extends 'main.html' %}
+        {% block content %}
+        	</br>
+            <div xmlns:dbr="http://dbpedia.org/resource/"
+                 xmlns:dbo="http://dbpedia.org/ontology/"
+				 xmlns:dbp="http://dbpedia.org/property/"
+
+                 about="{{ car_uri }}" typeof="dbr:Car" class="card" style="width:65rem" >
+
+                <h5 class="card-header text-center"> {{car_name}} </h5>
+
+                  <div class="card-body">
+                  	<br>
+                    <h4 class="card-title">Detailed Information:</h4>
+                      <p class="card-text"><span property="dbo:abstract"> {{abstract}} </span> </p>
+                  </div>
+
+                  <div class="card-body">
+                    <div class="d-flex justify-content-lg-between">
+                        <p></p>
+                      <h5> Manufacturer:<p>  <a rel="dbo:manufacturer" href="{{ man_uri }}">
+                        <span property="rdfs:label"> {{man}} </span> </a> </p>  </h5>
+                        <h5> Launch Year:<p> <span property="dbo:productionStartYear"> {{pSy}} </span> <p>  </h5>
+                        <h5> Transmission:<p> <span property="dbo:transmission"> {{transmission}} </span> </p> </h5>
+                        <h5> Weight: <p> <span property="dbo:weight"> {{peso}} </span> </p>  </h5>
+                        <p></p>
+                    </div>
+                    <br>
+                    <div class="d-flex justify-content-lg-between">
+                        <p></p>
+                        <h5> Length:<p>  <span property="dbo:length"> {{length}} </span> </p>  </h5>
+                        <h5> Height:<p> <span property="dbo:height"> {{height}} </span> <p>  </h5>
+                        <h5> Width:<p> <span property="dbo:width"> {{width}} </span> </p> </h5>
+                        <h5> Class: <p> <span property="dbp:class"> {{class}} </span> </p>  </h5>
+                        <p></p>
+                    </div>
+                  </div>
+			</div>
+
+
+
+            </br></br>
+            </br></br>
+			</br></br>
+			</br></br>
+        {% endblock %}

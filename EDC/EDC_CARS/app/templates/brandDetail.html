@@ -1,0 +1,28 @@
+{% extends 'main.html' %}
+        {% block content %}
+        	</br>
+			<div xmlns:dbo="http://dbpedia.org/ontology/" class="card" style="width: 65rem"
+                 about="{{ manuf_uri }}" typeof="dbo:manufacturer">
+                  
+                <h5 class="card-header text-center"> {{name}} </h5>
+                  <div class="card-body">
+                  	<br>
+                    <h4 class="card-title">Detailed Information:</h4>
+                      <p class="card-text"> <span property="dbo:abstract"> {{abstract}} </span> </p>
+                  </div>
+
+                  <div class="card-body">
+                    <div class="d-flex justify-content-lg-between">
+                        <p></p>
+                        <h5> Founding Date:<p> <span property="dbo:foundingDate"> {{foundDate}} </span> <p>  </h5>
+                        <h5> Founder: <p> <span property="dbo:founder"> {{founder}} </span> </p>  </h5>
+                        <p></p>
+                    </div>
+                  </div>
+			</div>
+
+            </br></br>
+            </br></br>
+			</br></br>
+			</br></br>
+        {% endblock %}
