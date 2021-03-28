@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<users>
+  <user>
+	<mail>rodrigo.l.silva.santos@ua.pt</mail>
+	<cidades>
+		<cidade>
+		  <id>241</id>
+		  <nome>rio de janeiro</nome>
+		</cidade>
+	</cidades>
+	<comentarios>
+		<comentario data="13/11/2020" cidade="241">O mar hoje estava fenomenal!</comentario>
+	</comentarios>
+  </user>
+</users>

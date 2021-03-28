@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+        {% block content %}
+        	</br>
+			<div class="card" style="width: 65rem">
+			  {% if image %}
+			  <div class="weather-part-second-image">
+				  {{ image | safe }}
+				  <div class="badge badge-primary indigo darken-4 weather-part-second-image-label pl-3 pr-3 pt-2 rounded-0">
+	                    <p>{{ day }}</p>
+	              </div>
+	          </div>
+	          {% endif %}
+			  <div class="card-body">
+			    <h4 class="card-title">Níveis de Ondulação</h4>
+			    <p class="card-text">
+			      Informação sobre os níveis de ondulação em {{city_name}}:
+			    </p>
+			  </div>
+			  {% if forecast %}
+			  	{{ forecast | safe }}
+			  {% else %}
+			  	<h5> Cidade não costeira, não tem informação de ondulação! </h5>
+			  {% endif %}
+			  <div class="card-body">
+			  	<form class="user" action="{% url 'forecast_city' %}" method="post">
+                    <div hidden class="form-group mx-sm-3 mb-2">
+                        <input hiddden type="text" name="cityText" class="form-control form-control-user" id="city" aria-describedby="heightHelp" value="{{city_name}}">
+                    </div>
+                    {% csrf_token %}
+                    <hr class="grey darken-2">
+                    <button type="submit" class="btn btn-indigo darken-4 waves-effect btn-md">Meteorologia: <b>{{city_name}}</b></button>
+                </form>
+			  </div>
+			</div>
+
+			</br></br>
+			{% if forecast %}
+			<div class="card" style="width: 65rem">
+				<!-- Tabs navs -->
+				<ul class="nav nav-tabs mb-3" id="ex1" role="tablist">
+				  <li class="nav-item" role="presentation">
+				    <a
+				      class="nav-link active"
+				      id="ex1-tab-1"
+				      data-toggle="tab"
+				      href="#ex1-tabs-1"
+				      role="tab"
+				      aria-controls="ex1-tabs-1"
+				      aria-selected="true"
+				      > Comentários </a
+				    >
+				  </li>
+				  {% if forecast and user.is_authenticated %}
+				  <li class="nav-item" role="presentation">
+				    <a
+				      class="nav-link"
+				      id="ex1-tab-2"
+				      data-toggle="tab"
+				      href="#ex1-tabs-2"
+				      role="tab"
+				      aria-controls="ex1-tabs-2"
+				      aria-selected="false"
+				      > Adicionar Comentário </a
+				    >
+				  </li>
+				  {% endif %}
+				</ul>
+				<!-- Tabs navs -->
+
+				<!-- Tabs content -->
+				<div class="tab-content" id="ex1-content">
+				  <div
+				    class="tab-pane fade show active"
+				    id="ex1-tabs-1"
+				    role="tabpanel"
+				    aria-labelledby="ex1-tab-1"
+				  >
+				  {% for coment, date, name in coments %}
+					  <div class="card border border-dark mb-3" style="max-width: 64rem">
+						  <div class="card-header text-left">{{name}}</div>
+						  <div class="card-body text-dark">
+						    <p class="card-text text-left">
+						      {{coment}}
+						    </p>
+						  </div>
+						  <div class="card-footer bg-transparent text-left font-weight-lighter font-italic small">{{date}}</div>
+					  </div>
+				  {% endfor %}
+				  </div>
+				  {% if forecast and user.is_authenticated %}
+				  <div class="tab-pane fade" id="ex1-tabs-2" role="tabpanel" aria-labelledby="ex1-tab-2">
+				  	<form class="user" action="{% url 'addComent' %}" method="post">
+                        <div hidden class="form-group mx-sm-3 mb-2">
+                            <input hiddden type="text" name="cityText" class="form-control form-control-user" id="cityn" value="{{city_name}}">
+                        </div>
+                        <div hidden class="form-group mx-sm-3 mb-2">
+                            <input hiddden type="text" name="cityid" class="form-control form-control-user" id="city_id" value="{{city_id}}">
+                        </div>
+                        {% csrf_token %}
+                        <div class="form-outline" style="max-width: 64rem">
+						  <textarea name="coment"class="form-control" id="textAreaExample" rows="4" placeholder="Inserir comentário aqui..."></textarea>
+						</div>
+                        <br>
+						<button type="submit" class="btn btn-indigo darken-4 waves-effect btn-md">Adicionar</button>
+                    </form>
+				  </div>
+				  {% endif %}
+				</div>
+				</br>
+			</div>
+			{% else %}
+				</br></br></br>
+				</br></br></br>
+				</br></br></br>
+				</br></br></br>
+				
+			{% endif %}
+			   
+			</br></br></br>
+        {% endblock %}

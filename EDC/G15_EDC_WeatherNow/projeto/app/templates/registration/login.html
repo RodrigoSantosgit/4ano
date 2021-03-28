@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+    <br><br><br>
+    <br><br><br>
+    <br><br><br>
+    <br><br><br>
+
+                   <div class="col">
+                    <div class="card z-depth-2" style="max-width:40rem;">
+
+                      <div class="card-body">
+                        <div class="container-fluid">
+                            <div class="col-md-12 pb-4 text-center">
+                                <h4 class="dark-text"><b>Login</b></h4>
+                            </div>
+                        </div>
+                      </div>
+
+                        <div class="d-inline-block text-center items-align-center">
+                           <form method="post">
+                                {% csrf_token %}
+                                {{ form.as_p }}
+                               <button class="btn btn-indigo darken-4 btn-md"  type="submit">Login</button>
+                           </form>
+                           <br>
+                        </div>
+                    </div>
+                </div>
+
+
+    <br><br><br>
+    <br><br><br>
+    <br><br><br>
+    <br><br><br>
+
+{% endblock %}

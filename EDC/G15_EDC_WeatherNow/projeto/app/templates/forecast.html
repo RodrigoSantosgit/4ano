@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+        {% block content %}
+
+         <h2>Previsao para 7 dias para {{city_name}}</h2>
+        {{forecast | safe}}
+
+        {% endblock %}

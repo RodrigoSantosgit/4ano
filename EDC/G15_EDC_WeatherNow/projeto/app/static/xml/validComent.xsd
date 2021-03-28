@@ -1,0 +1,19 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element type="comentarioType" name="comentario" />
+
+<xs:simpleType name="comment">
+    <xs:restriction base="xs:string">
+        <xs:pattern value="[\t\r\n&#x20;-&#xff;]*"/>
+    </xs:restriction>
+</xs:simpleType>
+
+<xs:complexType name="comentarioType">
+    <xs:simpleContent>
+      <xs:extension base="comment">
+  	<xs:attribute type="xs:string" name="data" use="required" />
+    	<xs:attribute type="xs:integer" name="cidade" use="required" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+</xs:schema>

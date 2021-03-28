@@ -1,0 +1,29 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element type="userType" name="user" />
+  <xs:complexType name="userType">
+    <xs:sequence>
+      <xs:element type="emailAddress" name="mail" />
+      <xs:element type="cidadeType" name="cidade" minOccurs="0" />
+      <xs:element type="comentarioType" name="comentario" minOccurs="0" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="emailAddress">
+    <xs:restriction base="xs:string">
+        <xs:pattern value="[^@]+@[^\.]+\..+"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="comentarioType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+  	<xs:attribute type="xs:string" name="data" use="required" />
+    	<xs:attribute type="xs:integer" name="cidade" use="required" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="cidadeType">
+  	<xs:sequence>
+  	  <xs:element type="xs:integer" name="id" />
+      <xs:element type="xs:string" name="nome" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

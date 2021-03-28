@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+    {% block content %}
+    <br><br><br><br>
+    <!-- Editable table -->
+    <div class="card">
+      <h3 class="card-header text-center font-weight-bold py-3">Cidades favoritas</h3>
+      <div class="card-body">
+        <div id="table" class="table-editable">
+          <table class="table table-bordered table-responsive-md table-striped text-center">
+            <thead>
+               <tr>
+                <th class="text-center font-weight-bold"></b>Cidade</th>
+                <th class="text-center font-weight-bold">Indíce UV</th>
+                <th class="text-center font-weight-bold">Máxima atual</th>
+                <th class="text-center font-weight-bold">Mínima atual</th>
+                <th class="text-center font-weight-bold">Agitação do mar</th>
+                <th class="text-center font-weight-bold">Mais informações</th>
+                <th class="text-center font-weight-bold">Remover</th>
+              </tr>
+            </thead>
+
+             {% for key, item in favorite.items %}
+                <tbody>
+                  <tr>
+                    <td class="pt-3-half" contenteditable="true"><br>{{ key }}</td>
+                    <td class="pt-3-half" contenteditable="true"><br>{{ item.0 }}º</td>
+                    <td class="pt-3-half" contenteditable="true"><br>{{ item.1 }}º</td>
+                    <td class="pt-3-half" contenteditable="true"><br>{{ item.2 }}º</td>
+                    <td class="pt-3-half" contenteditable="true"><br>{{ item.3 }}</td>
+
+                    <td>
+                        <form class="user" action="{% url 'forecast_city' %}" method="post">
+                            <div class="form-group mx-sm-3 mb-2">
+                                <input hidden type="text" name="cityText" class="form-control form-control-user" id="city" aria-describedby="heightHelp" value="{{key}}" />
+                            </div>
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-indigo darken-4 waves-effect btn-md">Informações</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form class="user" action="{% url 'remove_city' %}" method="post">
+                            <div class="form-group mx-sm-3 mb-2">
+                                <input hidden type="text" name="cityText" class="form-control form-control-user" id="city" aria-describedby="heightHelp" value="{{key}}" />
+                            </div>
+                            {% csrf_token %}
+                            <button type="submit" class="btn deep-orange darken-4 text-white waves-effect btn-md">Eliminar</button>
+                        </form>
+                    </td>
+                  </tr>
+                </tbody>
+              {% endfor %}
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- Editable table -->
+
+    <br><br><br><br>
+    <br><br><br><br>
+    <br><br><br><br>
+    <br><br><br><br>
+    {%  endblock %}

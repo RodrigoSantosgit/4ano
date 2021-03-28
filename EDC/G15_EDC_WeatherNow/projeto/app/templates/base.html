@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Weather Now</title>
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+
+    {% load static %}
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+    <!-- Material Design Bootstrap -->
+    <link rel="stylesheet" href="{% static 'css/mdb.min.css' %}" />
+    <!-- CSS do widget do tempo e footer antigo -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+
+</head>
+<body>
+    <!--Navbar -->
+    <nav class="mb-0 navbar navbar-expand-md navbar-dark unique-color-dark">
+      <a class="navbar-brand" href="#"><img class="img-responsive" src="https://api-assets.ua.pt/files/logos/logo_deti_pt.svg" alt="..." width="200" height="25"></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333"
+        aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      
+      <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'index' %}">Início
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'favoritos' %}">Cidades favoritas</a>
+            </li>
+          {% endif %}
+        </ul>
+        <ul class="navbar-nav ml-auto nav-flex-icons">
+        
+          {% if user.is_authenticated %}
+          
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                <a class="nav-link">{{user.username}} | </a>
+              </li>
+            </ul>
+            <button  type="button"  class="waves-light btn-outline-light btn btn-sm waves-effect" onclick="location.href='{% url 'conta' %}'">Minha conta</button>
+            <button  type="button"  class="waves-light btn-outline-light btn btn-sm waves-effect" onclick="location.href='{% url 'logout' %}'">Logout</button>
+
+          {% else %}
+
+            <button  type="button"  class="waves-light btn-outline-light btn btn-sm waves-effect" onclick="location.href='{% url 'login' %}'">Entrar</button>
+	        <button  type="button"  class="waves-light btn-outline-light btn btn-sm waves-effect" onclick="location.href='{% url 'signup' %}'">Criar conta</button>
+
+          {% endif %}
+        </ul>
+      </div>
+    </nav>
+    <!--End Navbar -->
+
+    <!--Div contents -->
+    <div class="container-fluid bg" align="center">
+    <br>
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <!-- Footer -->
+    <footer class="page-footer font-small black teal pt-4">
+
+        <!-- Footer Text -->
+        <div class="container-fluid text-center text-md-left">
+
+          <!-- Grid row -->
+          <div class="row">
+
+            <!-- Grid column -->
+            <div class="col-md-6 mt-md-0 mt-3">
+
+              <!-- Content -->
+              <h5 class="text-uppercase font-weight-bold">EDC Project</h5>
+              <p>Aplicação desenvolvida no âmbito do primeiro trabalho prático da disciplina de EDC.</p>
+              <p>Universidade de Aveiro, DETI</p>
+
+            </div>
+            <!-- Grid column -->
+
+            <hr class="clearfix w-100 d-md-none pb-3">
+
+            <!-- Grid column -->
+            <div class="col-md-6 mb-md-0 mb-3">
+
+              <!-- Content -->
+              <h5 class="text-uppercase font-weight-bold">WeatherNow</h5>
+              <p>Aplicação que mostra a previsão, estado atual do tempo e estado atual da ondulação nas cidades do Brasil.</p>
+              <p>Universidade de Aveiro, DETI</p>
+
+            </div>
+            <!-- Grid column -->
+
+          </div>
+          <!-- Grid row -->
+
+        </div>
+        <!-- Footer Text -->
+        <hr class="grey darken-4">
+        <!-- Copyright -->
+        <div class="footer-copyright text-center py-3">© 2020 Copyright:
+          <a href="https://mdbootstrap.com/">DETI - EDC Project</a>
+        </div>
+        <!-- Copyright -->
+      </footer>
+      <!--./Footer -->
+
+</body>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+
+</html>

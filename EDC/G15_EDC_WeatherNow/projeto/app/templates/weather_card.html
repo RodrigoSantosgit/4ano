@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+        {% block content %}
+            <!--/.Weather Widget -->
+
+            <div class="row p-0 m-0 container mainsection p-2 text-center">
+                <div class="col-lg-14 pb-4 text-center">
+                    <div class="weather-part-second border border-dark text-center z-depth-0">
+                        {% if image %}
+                        <div class="row text-center">
+                            <div class="col-lg-12 weather-part-second-image">
+                                <!-- TEMPLATE DA IMAGEM DINAMICA DO TEMPO -->
+                                {{ image | safe }}
+                            </div>
+
+                                <!-- TEMPLATE DA PREVISÃO DO TEMPO -->
+                               {{ forecast | safe}}
+                        </div>
+                        {% else %}
+                            <br><br><br>
+                            <br><br><br>
+                            <br><br><br>
+                            <br><br><br>
+                            <h2> Cidade não existente! </h2>
+                            <br><br><br>
+                            <br><br><br>
+                            <br><br><br>
+                            <br><br><br>
+                            <br><br><br>
+                        {% endif %}
+                        {% if image %}
+                        <div class="card-body z-depth-2 bg-white">
+                        <hr class="grey darken-2">
+                            <form class="user" action="{% url 'ondulacao' %}" method="post">
+                                <div hidden class="form-group mx-sm-3 mb-2">
+                                    <input hiddden type="text" name="cityText" class="form-control form-control-user" id="city" aria-describedby="heightHelp" value="{{city_name}}">
+                                </div>
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-indigo darken-4 waves-effect btn-md">ONDULAÇÃO: <b>{{city_name}}</b></button>
+                            </form>
+                            {% if user.is_authenticated %}
+                                {% if city_bd == "True" %}
+                                    <form class="user" action="" method="post">
+                                        <div hidden class="form-group mx-sm-3 mb-2">
+                                            <input hiddden type="text" name="cityText" class="form-control form-control-user" id="cityn" value="{{city_name}}">
+                                        </div>
+                                        <div hidden class="form-group mx-sm-3 mb-2">
+                                            <input hiddden type="text" name="cityid" class="form-control form-control-user" id="city_id" value="{{city_id}}">
+                                        </div>
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn success-color-dark text-white waves-effect btn-md" data-toggle="modal" data-target="#frameModalBottom">ADICIONAR <b>{{ city_name }}</b> AOS FAVORITOS</button>
+                                    </form>
+                                {% else %}
+                                    <form class="user" action="{% url 'add_favorite' %}" method="post">
+                                        <div hidden class="form-group mx-sm-3 mb-2">
+                                            <input hiddden type="text" name="cityText" class="form-control form-control-user" id="cityn" value="{{city_name}}">
+                                        </div>
+                                        <div hidden class="form-group mx-sm-3 mb-2">
+                                            <input hiddden type="text" name="cityid" class="form-control form-control-user" id="city_id" value="{{city_id}}">
+                                        </div>
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-success waves-effect btn-md" data-toggle="modal" data-target="#frameModalBottom">Adicionar <b>{{ city_name }}</b> aos favoritos</button>
+                                    </form>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Frame Modal Bottom -->
+                <div class="modal fade top" id="frameModalBottom" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                  aria-hidden="true">
+
+                  <!-- Add class .modal-frame and then add class .modal-bottom (or other classes from list above) to set a position to the modal -->
+                  <div class="modal-dialog modal-frame modal-top" role="document">
+
+
+                    <div class="modal-content">
+                      <div class="modal-body">
+                        <div class="row d-flex justify-content-center align-items-center">
+                          {% if city_bd == 'False' %}
+                            <p class="pt-3 pr-2">A cidade {{ city_name }} foi adicionada aos favoritos!</p>
+                          {% else %}
+                            <p class="pt-3 pr-2">A cidade {{ city_name }} já se encontra nos favoritos!</p>
+                          {% endif %}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Frame Modal Bottom -->
+            </div>
+
+
+
+        {% endblock %}
+

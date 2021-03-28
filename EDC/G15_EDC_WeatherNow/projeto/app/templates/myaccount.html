@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+    {% block content %}
+    <br><br><br><br>
+    <!-- Editable table -->
+    <div class="col">
+                    <div class="card" style="max-width:35rem;">
+
+                      <div class="card-body">
+                        <div class="container-fluid">
+                            <div class=" col-md-12 pb-4 text-center">
+                                <br>
+                                
+                                
+                                <form class="user" id="form" action="{% url 'submit' %}" method="post">
+                                <div class="form-group mx-sm-2 mb-2" >
+                              
+                                    <h6 class="dark-text "><b>Username</b></h6>
+                                 
+                                    <input type="text" name="username" class=" form-control form-control-user z-depth-1" id="city" aria-describedby="heightHelp" placeholder="{{user.username}}" readonly="true" value="{{user.username}}">
+                                    <br><br>
+                                    <h6 class="dark-text "><b>Editar email</b></h6>
+                                   
+                                    <input type="text" id="emailId" name="mail" class=" form-control form-control-user z-depth-1" id="city" aria-describedby="heightHelp" placeholder="{{user.email}}">
+                                    <br><br>
+
+                                </div>
+                                {% csrf_token %}
+                                <button type="submit" onsubmit="return isValid();" class="btn btn-indigo darken-4 waves-effect btn-md">Guardar alteração</button>
+        
+                                </form>
+
+                            </div>
+                        </div>
+                      </div>
+
+                                                    
+                </div>
+    <!-- Editable table -->
+
+    <script type="text/javascript">
+    function isValid()
+    { var mail = document.getElementById('emailId').value;
+      if(mail.trim() === '')
+      { 
+        alert("Email vazio");
+        //returnToPreviousPage();
+        return false;
+      }
+
+      //alert("validations passed");
+      return true;
+    }
+    </script>
+
+    <br><br><br><br>
+    <br><br><br><br>
+    <br><br><br><br>
+    <br><br><br><br>
+    {%  endblock %}
