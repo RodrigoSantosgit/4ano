@@ -1,0 +1,8 @@
+Jan 19 15:44:56.375 HYPERVISOR: Release 0.2.17-x86/Windows (tag 2017072410)
+Jan 19 15:44:56.426 HYPERVISOR: Started on IP = 127.0.0.1, TCP port = 50050.
+Jan 19 15:44:56.508 HYPERVISOR: exec_cmd: hypervisor version 
+Jan 19 15:44:56.528 HYPERVISOR: exec_cmd: hypervisor working_dir D:\ARA\FINAL\89180_89241\projeto_89180_89241\projetoARA\project-files\dynamips 
+Jan 19 15:44:56.759 GENERAL: working_dir=D:\ARA\FINAL\89180_89241\projeto_89180_89241\projetoARA\project-files\dynamips
+Jan 19 15:44:56.760 HYPERVISOR: exec_cmd: hypervisor working_dir D:\ARA\FINAL\89180_89241\projeto_89180_89241\projetoARA\project-files\dynamips\5470e1ad-2f79-4a90-8045-b346c7577b77 
+Jan 19 15:44:56.760 GENERAL: working_dir=D:\ARA\FINAL\89180_89241\projeto_89180_89241\projetoARA\project-files\dynamips\5470e1ad-2f79-4a90-8045-b346c7577b77
+Jan 19 15:44:56.761 HYPERVISOR: exec_cmd: vm create Militech_N 1 c3725 

@@ -1,0 +1,8 @@
+cygwin warning:
+  MS-DOS style path detected: D:\ARA\FINAL\89180_89241\projeto_89180_89241\projetoARA\project-files\dynamips
+  Preferred POSIX equivalent is: /cygdrive/d/ARA/FINAL/89180_89241/projeto_89180_89241/projetoARA/project-files/dynamips
+  CYGWIN environment variable option "nodosfilewarning" turns off this warning.
+  Consult the user's guide for more details about POSIX paths:
+    http://cygwin.com/cygwin-ug-net/using.html#using-pathnames
+      1 [unknown (0x25A4)] dynamips 2272 D:\GNS3\dynamips\dynamips.EXE: *** fatal error - NtCreateEvent(lock): 0xC0000058
+  69080 [unknown (0x25A4)] dynamips 2272 cygwin_exception::open_stackdumpfile: Dumping stack trace to dynamips.EXE.stackdump
