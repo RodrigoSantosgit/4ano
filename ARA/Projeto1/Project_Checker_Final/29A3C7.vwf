@@ -1,0 +1,228 @@
+/*<simulation_settings>
+<ftestbench_cmd>quartus_eda --gen_testbench --tool=modelsim_oem --format=vhdl --write_settings_files=off Project_Checker_Final -c Checker_CRC_8 --vector_source="C:/intelFPGA_lite/17.1/ACA/Project_Checker_Final/29A3C7.vwf" --testbench_file="C:/intelFPGA_lite/17.1/ACA/Project_Checker_Final/simulation/qsim/29A3C7.vwf.vht"</ftestbench_cmd>
+<ttestbench_cmd>quartus_eda --gen_testbench --tool=modelsim_oem --format=vhdl --write_settings_files=off Project_Checker_Final -c Checker_CRC_8 --vector_source="C:/intelFPGA_lite/17.1/ACA/Project_Checker_Final/29A3C7.vwf" --testbench_file="C:/intelFPGA_lite/17.1/ACA/Project_Checker_Final/simulation/qsim/29A3C7.vwf.vht"</ttestbench_cmd>
+<fnetlist_cmd>quartus_eda --write_settings_files=off --simulation --functional=on --flatten_buses=off --tool=modelsim_oem --format=vhdl --output_directory="C:/intelFPGA_lite/17.1/ACA/Project_Checker_Final/simulation/qsim/" Project_Checker_Final -c Checker_CRC_8</fnetlist_cmd>
+<tnetlist_cmd>quartus_eda --write_settings_files=off --simulation --functional=off --flatten_buses=off --timescale=1ps --tool=modelsim_oem --format=vhdl --output_directory="C:/intelFPGA_lite/17.1/ACA/Project_Checker_Final/simulation/qsim/" Project_Checker_Final -c Checker_CRC_8</tnetlist_cmd>
+<modelsim_script>onerror {exit -code 1}
+vlib work
+vcom -work work Checker_CRC_8.vho
+vcom -work work 29A3C7.vwf.vht
+vsim -novopt -c -t 1ps -L cycloneive -L altera -L altera_mf -L 220model -L sgate -L altera_lnsim work.Checker_CRC_8_vhd_vec_tst
+vcd file -direction Project_Checker_Final.msim.vcd
+vcd add -internal Checker_CRC_8_vhd_vec_tst/*
+vcd add -internal Checker_CRC_8_vhd_vec_tst/i1/*
+proc simTimestamp {} {
+    echo "Simulation time: $::now ps"
+    if { [string equal running [runStatus]] } {
+        after 2500 simTimestamp
+    }
+}
+after 2500 simTimestamp
+run -all
+quit -f
+</modelsim_script>
+<modelsim_script_timing>onerror {exit -code 1}
+vlib work
+vcom -work work Checker_CRC_8.vho
+vcom -work work 29A3C7.vwf.vht
+vsim -novopt -c -t 1ps -sdfmax Checker_CRC_8_vhd_vec_tst/i1=Checker_CRC_8_vhd.sdo -L cycloneive -L altera -L altera_mf -L 220model -L sgate -L altera_lnsim work.Checker_CRC_8_vhd_vec_tst
+vcd file -direction Project_Checker_Final.msim.vcd
+vcd add -internal Checker_CRC_8_vhd_vec_tst/*
+vcd add -internal Checker_CRC_8_vhd_vec_tst/i1/*
+proc simTimestamp {} {
+    echo "Simulation time: $::now ps"
+    if { [string equal running [runStatus]] } {
+        after 2500 simTimestamp
+    }
+}
+after 2500 simTimestamp
+run -all
+quit -f
+</modelsim_script_timing>
+<hdl_lang>vhdl</hdl_lang>
+</simulation_settings>*/
+/*
+WARNING: Do NOT edit the input and output ports in this file in a text
+editor if you plan to continue editing the block that represents it in
+the Block Editor! File corruption is VERY likely to occur.
+*/
+
+/*
+Copyright (C) 2017  Intel Corporation. All rights reserved.
+Your use of Intel Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Intel Program License 
+Subscription Agreement, the Intel Quartus Prime License Agreement,
+the Intel FPGA IP License Agreement, or other applicable license
+agreement, including, without limitation, that your use is for
+the sole purpose of programming logic devices manufactured by
+Intel and sold by Intel or its authorized distributors.  Please
+refer to the applicable agreement for further details.
+*/
+
+HEADER
+{
+	VERSION = 1;
+	TIME_UNIT = ns;
+	DATA_OFFSET = 0.0;
+	DATA_DURATION = 1000.0;
+	SIMULATION_TIME = 0.0;
+	GRID_PHASE = 0.0;
+	GRID_PERIOD = 10.0;
+	GRID_DUTY_CYCLE = 50;
+}
+
+SIGNAL("clock")
+{
+	VALUE_TYPE = NINE_LEVEL_BIT;
+	SIGNAL_TYPE = SINGLE_BIT;
+	WIDTH = 1;
+	LSB_INDEX = -1;
+	DIRECTION = INPUT;
+	PARENT = "";
+}
+
+SIGNAL("dataIn")
+{
+	VALUE_TYPE = NINE_LEVEL_BIT;
+	SIGNAL_TYPE = SINGLE_BIT;
+	WIDTH = 1;
+	LSB_INDEX = -1;
+	DIRECTION = INPUT;
+	PARENT = "";
+}
+
+SIGNAL("nRst")
+{
+	VALUE_TYPE = NINE_LEVEL_BIT;
+	SIGNAL_TYPE = SINGLE_BIT;
+	WIDTH = 1;
+	LSB_INDEX = -1;
+	DIRECTION = INPUT;
+	PARENT = "";
+}
+
+SIGNAL("error")
+{
+	VALUE_TYPE = NINE_LEVEL_BIT;
+	SIGNAL_TYPE = SINGLE_BIT;
+	WIDTH = 1;
+	LSB_INDEX = -1;
+	DIRECTION = OUTPUT;
+	PARENT = "";
+}
+
+TRANSITION_LIST("clock")
+{
+	NODE
+	{
+		REPEAT = 1;
+		NODE
+		{
+			REPEAT = 100;
+			LEVEL 0 FOR 5.0;
+			LEVEL 1 FOR 5.0;
+		}
+	}
+}
+
+TRANSITION_LIST("dataIn")
+{
+	NODE
+	{
+		REPEAT = 1;
+		LEVEL 0 FOR 33.42;
+		LEVEL 1 FOR 2.206;
+		LEVEL 0 FOR 18.07;
+		LEVEL 1 FOR 2.418;
+		LEVEL 0 FOR 27.252;
+		LEVEL 1 FOR 13.545;
+		LEVEL 0 FOR 16.447;
+		LEVEL 1 FOR 3.548;
+		LEVEL 0 FOR 36.12;
+		LEVEL 1 FOR 33.701;
+		LEVEL 0 FOR 35.798;
+		LEVEL 1 FOR 60.63;
+		LEVEL 0 FOR 30.217;
+		LEVEL 1 FOR 5.159;
+		LEVEL 0 FOR 11.606;
+		LEVEL 1 FOR 9.027;
+		LEVEL 0 FOR 22.568;
+		LEVEL 1 FOR 16.12;
+		LEVEL 0 FOR 13.541;
+		LEVEL 1 FOR 19.344;
+		LEVEL 0 FOR 18.699;
+		LEVEL 1 FOR 40.623;
+		LEVEL 0 FOR 30.95;
+		LEVEL 1 FOR 72.863;
+		LEVEL 0 FOR 426.128;
+	}
+}
+
+TRANSITION_LIST("nRst")
+{
+	NODE
+	{
+		REPEAT = 1;
+		LEVEL 0 FOR 8.06;
+		LEVEL 1 FOR 271.94;
+		LEVEL 0 FOR 10.0;
+		LEVEL 1 FOR 370.0;
+		LEVEL 0 FOR 340.0;
+	}
+}
+
+TRANSITION_LIST("error")
+{
+	NODE
+	{
+		REPEAT = 1;
+		LEVEL X FOR 1000.0;
+	}
+}
+
+DISPLAY_LINE
+{
+	CHANNEL = "clock";
+	EXPAND_STATUS = COLLAPSED;
+	RADIX = Binary;
+	TREE_INDEX = 0;
+	TREE_LEVEL = 0;
+}
+
+DISPLAY_LINE
+{
+	CHANNEL = "dataIn";
+	EXPAND_STATUS = COLLAPSED;
+	RADIX = Binary;
+	TREE_INDEX = 1;
+	TREE_LEVEL = 0;
+}
+
+DISPLAY_LINE
+{
+	CHANNEL = "nRst";
+	EXPAND_STATUS = COLLAPSED;
+	RADIX = Binary;
+	TREE_INDEX = 2;
+	TREE_LEVEL = 0;
+}
+
+DISPLAY_LINE
+{
+	CHANNEL = "error";
+	EXPAND_STATUS = COLLAPSED;
+	RADIX = Binary;
+	TREE_INDEX = 3;
+	TREE_LEVEL = 0;
+}
+
+TIME_BAR
+{
+	TIME = 0;
+	MASTER = TRUE;
+}
+;
