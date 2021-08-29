@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ASCII"?>
+<sdkproject:SdkProject xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:sdkproject="http://www.xilinx.com/sdkproject" name="CRC" location="D:/CR/Project/CRC" platform="D:/CR/Project/mb_design_crc/export/mb_design_crc/mb_design_crc.xpfm" platformUID="xilinx:nexys4::0.0(custom)" systemProject="CRC_system" sysConfig="mb_design_crc" runtime="cpp" cpu="standalone_microblaze_0" cpuInstance="microblaze_0" os="standalone" mssSignature="6ef295fcd5d402ea96923098f3c45130">
+  <configuration name="Debug" id="xilinx.gnu.mb.exe.debug.60691435">
+    <configBuildOptions xsi:type="sdkproject:SdkOptions"/>
+    <lastBuildOptions xsi:type="sdkproject:SdkOptions"/>
+  </configuration>
+  <configuration name="Release" id="xilinx.gnu.mb.exe.release.520106442" dirty="true">
+    <configBuildOptions xsi:type="sdkproject:SdkOptions"/>
+  </configuration>
+  <template appTemplateName="hello_world"/>
+</sdkproject:SdkProject>
