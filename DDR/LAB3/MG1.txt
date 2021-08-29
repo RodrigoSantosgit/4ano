@@ -1,0 +1,55 @@
+function [APD, TT] = MG1(lambda,C,b)
+
+aux2= [65:109 111:1517];
+
+S1 = (64 * 8) / (C * 10^6);
+S2 = (110 * 8) / (C * 10^6);
+S3 = (1518 * 8) / (C * 10^6);
+S4 = ((mean(aux2)) * 8) / (C * 10^6);
+S42 = 0;
+
+per = (1-0.16-0.25-0.2);
+per_4_each = per / length(aux2);
+size_mean = 0.16 * (64 * 8) + 0.25 * (110 * 8) + 0.2 * (1518 * 8);
+PL = 0.16 * (1 - ((1 - b) ^ (64 * 8))) + 0.25 * (1 - ((1 - b) ^ (110 * 8))) + 0.2 * (1 - ((1 - b) ^ (1518 * 8)));
+TT = 0.16 * ((1 - b) ^ (64 * 8)) * lambda * (8 * 64) + 0.25 * ((1 - b) ^ (110 * 8)) * lambda * (8 * 110) + 0.2 * ((1 - b) ^ (1518 * 8)) * lambda * (8 * 1518);
+
+for i = [65:109 111:1517]
+    S42 = S42 + ((i*8)/10e6)^2;
+    size_mean = size_mean + i * 8 * per_4_each;
+    PL = PL + per_4_each * (1 - ((1 - b) ^ (i * 8)));
+    TT = TT + per_4_each * ((1 - b) ^ (i * 8)) * lambda * (8 * i);
+end
+
+S42 = S42 / length(aux2);
+
+ES = 0.16 * S1 + 0.25 * S2 + 0.2 * S3 + per * S4;
+ES2 = 0.16 * S1^2 + 0.25 * S2^2 + 0.2 * S3^2 + per * S42;
+
+% Wq = (lambda * ES2) / (2 * (1 - lambda * ES));
+% 
+% sum1 = 0;
+% sum2 = 0;
+% Bi = [64,110,1518,mean(aux2);0.16,0.25,0.2,(1-0.16-0.25-0.2)]
+% TT = 0;
+% 
+% for i = 1:length(Bi(1))
+%     
+%     Pi = (1 - b) ^ (8 * Bi(i,1));
+%     Wi = 8*Bi(i,1)/C + Wq;
+%     sum1 = sum1 + Pi * Bi(i,2) * Wi;
+%     sum2 = sum2 + Pi * Bi(i,2);
+%     TT = TT + (Bi(i,2) * Pi * lambda * 8 * Bi(i,1));
+%     
+%     sum1 = sum1 + Bi(i,1) * Bi(i,2);
+%     
+% end
+% 
+% sum1 = sum1*8
+
+PL = PL * 100;
+APD = ((lambda * ES2) / (2 * (1 - lambda * ES)) + ES) * 1000;
+TT = TT * 1e-6;
+% TT = lambda * b * size_mean; % Como calcular Throughput quando b = 0 ? Pela forma do 1d ?
+% TT = lambda * b * sum1;
+
