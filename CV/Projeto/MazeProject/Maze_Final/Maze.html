@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	
+<!--
+
+WebGL_example_21.html
+
+Mesh Models - Refinement
+
+J. Madeira - October 2015
+
+-->
+	
+<title>3D Maze</title>
+
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+
+<!--
+
+The simple vertex and fragment shaders.
+
+Using a vertex coordinate buffer and a vertex colour buffer.
+
+Passing the Model-View Matrix and the Projection Matrix. 
+
+-->
+
+<script id="shader-vs" type="x-shader/x-vertex">
+	
+    attribute vec3 aVertexPosition;
+	
+	attribute vec2 aTextureCoord;
+	
+	varying vec2 vTextureCoord;
+    
+    uniform mat4 uMVMatrix;
+
+    uniform mat4 uPMatrix;
+    
+    void main(void) {
+		
+		// To allow seeing the points drawn
+		
+		gl_PointSize = 5.0;
+		
+		// Just converting the (x,y,z) vertices to Homogeneous Coord.
+		
+		// And multiplying by the Projection and the Model-View matrix
+		
+        gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+        
+        // Converting the RGB color value to RGBA
+		
+		vTextureCoord = aTextureCoord;
+    }
+</script>
+
+<script id="shader-fs" type="x-shader/x-fragment">
+
+	precision mediump float;
+	
+	varying vec2 vTextureCoord;
+	
+	uniform sampler2D uSampler;
+	
+	void main(void) {
+		
+		// Using the passed vertex color
+		
+		gl_FragColor = texture2D(uSampler, vec2(vTextureCoord.s, vTextureCoord.t));
+	}
+
+</script>
+<script type="text/javascript" src="webgl-utils.js"></script>
+<script type="text/javascript" src="maths.js"></script>
+<script type="text/javascript" src="models.js"></script>
+<script type="text/javascript" src="initShaders.js"></script>
+<script type="text/javascript" src="setUpBuffers.js"></script>
+<script type="text/javascript" src="drawModels.js"></script>
+<script type="text/javascript" src="Maze.js"></script>
+<script type="text/javascript" src="eventHandling.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+</head>
+
+<body onload="runWebGL();">
+
+	<nav class="navbar navbar-expand-lg" style="background-color: rgb(255,51,153);">
+		<a class="navbar-brand mx-auto" style="color: white" >3D Maze Simulator </a>
+	</nav>
+	<div>
+        <div class="py-4 text-center">
+            <h4>Try to Escape!</h4>
+        </div>
+        <div class="container">
+            <div class="row">
+				<div class="col-3">
+					<!-- ################################################### -->
+
+					<h4>Outside View Controls</h4>
+					
+					<button class="btn btn-danger btn-sm" id="reset-view-button">Reset View</button>
+					
+                    <h5>Move Maze</h5>
+                    <p>
+                        <button class="btn btn-info btn-sm" style="background-color : rgb(255,102,178); border-color:rgb(255,102,178);" id="move-left-button">&larr;</button>
+                        <button class="btn btn-info btn-sm" style="background-color : rgb(255,102,178); border-color:rgb(255,102,178);" id="move-right-button">&rarr;</button>
+                        <button class="btn btn-info btn-sm" style="background-color : rgb(255,102,178); border-color:rgb(255,102,178);" id="move-up-button">&uarr;</button>
+                        <button class="btn btn-info btn-sm" style="background-color : rgb(255,102,178); border-color:rgb(255,102,178);" id="move-down-button">&darr;</button>
+                        <button class="btn btn-info btn-sm" style="background-color : rgb(255,102,178); border-color:rgb(255,102,178);" id="move-front-button">Front</button>
+						<button class="btn btn-info btn-sm" style="background-color : rgb(255,102,178); border-color:rgb(255,102,178);" id="move-back-button">Back</button>
+						<p>WASD / arrows keys &larr; &rarr; &uarr; &darr; to move to the sides or up & down</p>
+						<p>F & B to move to the front or back</p>
+                    </p>
+					
+					<h5>Rotate</h5>
+
+                    <h6>XX</h6>
+                    <p>
+                        <button class="btn btn-danger btn-sm" id="XX-on-off-button">On / Off</button>
+                        <button class="btn btn-info btn-sm" style="background-color : rgb(255,102,178); border-color:rgb(255,102,178);" id="XX-direction-button">Change Direction</button>
+                    </p>
+                    <p>
+                        <button class="btn btn-info btn-sm" style="background-color : rgb(255,102,178); border-color:rgb(255,102,178);" id="XX-slower-button">Slower</button>
+                        <button class="btn btn-info btn-sm" style="background-color : rgb(255,102,178); border-color:rgb(255,102,178);" id="XX-faster-button">Faster</button>
+                    </p>
+
+                    <h6>YY</h6>
+                    <p>
+                        <button class="btn btn-danger btn-sm" id="YY-on-off-button">On / Off</button>
+                        <button class="btn btn-info btn-sm" style="background-color : rgb(255,102,178); border-color:rgb(255,102,178);" id="YY-direction-button">Change Direction</button>
+                    </p>
+                    <p>
+                        <button class="btn btn-info btn-sm" style="background-color : rgb(255,102,178); border-color:rgb(255,102,178);" id="YY-slower-button">Slower</button>
+                        <button class="btn btn-info btn-sm" style="background-color : rgb(255,102,178); border-color:rgb(255,102,178);" id="YY-faster-button">Faster</button>
+
+                    </p>
+
+                    <h6>ZZ</h6>
+                    <p>
+                        <button class="btn btn-danger btn-sm" id="ZZ-on-off-button">On / Off</button>
+                        <button class="btn btn-info btn-sm" style="background-color : rgb(255,102,178); border-color:rgb(255,102,178);" id="ZZ-direction-button">Change Direction</button>
+                    </p>
+                    <p>
+                        <button class="btn btn-info btn-sm" style="background-color : rgb(255,102,178); border-color:rgb(255,102,178);" id="ZZ-slower-button">Slower</button>
+                        <button class="btn btn-info btn-sm" style="background-color : rgb(255,102,178); border-color:rgb(255,102,178);" id="ZZ-faster-button">Faster</button>
+                    </p>
+                    <p>The mouse also controls rotation by clicking and dragging</p>
+                </div>
+				
+                <div class="col">
+                    <canvas id="my-canvas" style="border:1px solid #000000;" width="650" height="650"></canvas>
+                </div>
+                <div class="col" style="max-width:300px">
+                    <h4>First Person Controls</h4>
+
+                    <h5>Movement</h5>
+                    <p>
+                        <button class="btn btn-info btn-sm" style="background-color : rgb(255,102,178); border-color:rgb(255,102,178);" id="move-player-left-button">&larr;</button>
+                        <button class="btn btn-info btn-sm" style="background-color : rgb(255,102,178); border-color:rgb(255,102,178);" id="move-player-right-button">&rarr;</button>
+                        <button class="btn btn-info btn-sm" style="background-color : rgb(255,102,178); border-color:rgb(255,102,178);" id="move-player-up-button">&uarr;</button>
+                        <button class="btn btn-info btn-sm" style="background-color : rgb(255,102,178); border-color:rgb(255,102,178);" id="move-player-down-button">&darr;</button>
+                        <p>Or WASD / arrows keys &larr; &rarr; &uarr; &darr;</p>
+					</p>
+					<h5>Look around</h5>
+					<p>
+						<button class="btn btn-info btn-sm" style="background-color : rgb(255,102,178); border-color:rgb(255,102,178);" id="rotate-player-left-button">Left</button>
+						<button class="btn btn-info btn-sm" style="background-color : rgb(255,102,178); border-color:rgb(255,102,178);" id="rotate-player-right-button">Right</button>
+						<p>Or Q & E</p>
+                    </p>
+                    <h4>General controls:</h4>
+                    <p>
+						<button class="btn btn-danger btn-sm" id="reset-button">Restart Positions</button>
+						<button class="btn btn-success btn-sm" id="change-mode-button">Restart View</button>
+						<input type="file" id="file" name="file">
+					</p>
+                    </div>
+                </div> 
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
